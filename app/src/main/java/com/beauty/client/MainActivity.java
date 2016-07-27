@@ -9,7 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
 
-    public static final String picUrl = "http://img.quwenjiemi.com/2014/0701/thumb_420_234_20140701112917406.jpg";
+    public static final String picUrl = "http://192.168.1.107:5000/static/img/2013532067.jpg";
 
 
     @Override
