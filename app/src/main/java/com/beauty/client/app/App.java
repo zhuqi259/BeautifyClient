@@ -1,6 +1,5 @@
 package com.beauty.client.app;
 
-
 import android.app.Application;
 import com.beauty.client.rest.RestClient;
 
