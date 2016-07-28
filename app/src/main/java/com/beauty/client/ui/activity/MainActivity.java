@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "TEST";
 
     private ImageView imageView;
+    private VolleyLoadPicture vlp;
 
     public static final String picUrl = "http://192.168.1.107:5000/static/img/2013532067.jpg";
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
 
         //用Volley加载图片
-        VolleyLoadPicture vlp = new VolleyLoadPicture(this, imageView);
+        vlp = new VolleyLoadPicture(this, imageView);
         vlp.getmImageLoader().get(picUrl, vlp.getOne_listener());
 
         //需要监听左右滑动事件的view => imageView
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                Log.i(TAG, "Success : " + response.body().getUser().getPhoto());
+                // Log.i(TAG, "Success : " + response.body().getUser().getPhoto());
+                String photo = response.body().getUser().getPhoto();
+                vlp.getmImageLoader().get(photo, vlp.getOne_listener());
             }
 
             @Override
