@@ -13,7 +13,7 @@ import android.view.MotionEvent;
  * * @author zhuqi259
  * *
  */
-public class GestureListener extends SimpleOnGestureListener implements OnTouchListener {
+public abstract class GestureListener extends SimpleOnGestureListener implements OnTouchListener {
     /**
      * 左右滑动的最短距离
      */
@@ -35,16 +35,12 @@ public class GestureListener extends SimpleOnGestureListener implements OnTouchL
     /**
      * 向左滑的时候调用的方法，子类应该重写
      */
-    public boolean left() {
-        return false;
-    }
+    public abstract boolean left();
 
     /**
      * 向右滑的时候调用的方法，子类应该重写
      */
-    public boolean right() {
-        return false;
-    }
+    public abstract boolean right();
 
 
     @Override
