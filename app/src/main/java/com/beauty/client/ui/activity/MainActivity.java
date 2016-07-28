@@ -1,13 +1,18 @@
-package com.beauty.client;
+package com.beauty.client.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.widget.ImageView;
+import com.beauty.client.R;
+import com.beauty.client.app.App;
+import com.beauty.client.rest.model.UserResponse;
 import com.beauty.client.utils.GestureListener;
 import com.beauty.client.utils.VolleyLoadPicture;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "TEST";
@@ -34,6 +39,21 @@ public class MainActivity extends AppCompatActivity {
         imageView.setOnTouchListener(new MyGestureListener(this));
     }
 
+    private void left_or_right() {
+        Call<UserResponse> call = App.getRestClient().getUserService().randomUser();
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                Log.i(TAG, "Success : " + response.body().getUser().getPhoto());
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Log.e(TAG, "Error : " + t.getMessage());
+            }
+        });
+    }
+
     /**
      * 继承GestureListener，重写left和right方法
      */
@@ -45,12 +65,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean left() {
             Log.e(TAG, "向左滑");
+            left_or_right();
             return false;
         }
 
         @Override
         public boolean right() {
             Log.e(TAG, "向右滑");
+            left_or_right();
             return false;
         }
     }
